@@ -5,8 +5,6 @@
 #include<sys/wait.h>
 #include <unistd.h>
 
-#define MAX_WORDS 128
-
 int main(int argc, char** argv)
 {
     int fd[2];
@@ -26,6 +24,6 @@ int main(int argc, char** argv)
         close(0);
         dup2(fd[0], 0); // dup2 read to stdin
         close(fd[1]); // close write end of pipe
-        execlp("wc","wc", "-l", NULL); // execlp wc -l.
+        execlp("wc","wc", "-l", NULL); // execlp wc -l
     }
 }
