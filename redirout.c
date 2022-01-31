@@ -3,8 +3,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define MAX_CHAR 2048
-
 int main(int argc, char** argv)
   {
 
