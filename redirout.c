@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 
   if(argc < 3) 
   {
-    printf("Please enter more than three commands!");
+    printf("Please enter more than three commands\n");
 		exit(1);
 	}
   // open() output
@@ -25,13 +25,12 @@ int main(int argc, char** argv)
     if(!fork()) //parent
     {
         close(fds[1]);
-        char buf[MAX_CHAR];
+        char buf[2048];
         int i;
 
         // loop for read/writing logic
-        while (i > 0) 
+        while ((i = read(fds[0], buf, sizeof buf))> 0) 
         {
-          i = read(fds[0], buf, sizeof buf); // from input end to a buffer
           write(fd, buf, i); // the buffer into the opened output file
         }
         close(fds[0]); // close() the read end of the pipe.
@@ -39,7 +38,7 @@ int main(int argc, char** argv)
     }
     else // child
     {
-        close(0);
+        // close(0);
         dup2(fds[1], 1); // dup2 output to stdout
         close(fds[0]); // close read end of pipe
         char * const *args = argv + 2;
